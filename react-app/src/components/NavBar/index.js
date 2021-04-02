@@ -1,38 +1,32 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton';
+import SearchBar from '../SearchBar'
+import AccountButton from "./AccountButton"
 import "./NavBar.css"
 
 const NavBar = ({ setAuthenticated }) => {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/" exact={true} activeClassName="active">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" exact={true} activeClassName="active">
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/sign-up" exact={true} activeClassName="active">
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton setAuthenticated={setAuthenticated} />
-        </li>
-      </ul>
-    </nav>
-  );
+    return (
+        <nav>
+            <div className="nav-container">
+                <div>
+                    <NavLink to="/" exact={true} activeClassName="active">
+                        <div>
+                            <i className="fas fa-binoculars"></i>
+                        </div>
+                    </NavLink>
+                </div>
+                <div>
+                    <SearchBar />
+                </div>
+                <div>
+                    Portfolio
+                </div>
+                <div>
+                    <AccountButton setAuthenticated={setAuthenticated}/>
+                </div>
+            </div>
+        </nav>
+    );
 }
 
 export default NavBar;
