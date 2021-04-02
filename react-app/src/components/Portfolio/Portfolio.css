@@ -1,0 +1,15 @@
+.portfolio-container {
+    width: 323.77778px;
+    padding: 24px;
+}
+
+.holding-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.holdings-container a {
+    text-decoration: none;
+    color: inherit;
+}

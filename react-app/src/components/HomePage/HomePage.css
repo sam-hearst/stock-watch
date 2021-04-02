@@ -1,0 +1,12 @@
+.main-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1024px;
+}
+
+.holdings-graph {
+    width: 676px;
+    height: 349px;
+}

@@ -1,1 +1,69 @@
-/* TODO Add site wide styles */
+/* :root {
+    --main-background: #fff;
+    --main-border: #eee;
+    --main-padding: 20px;
+    --main-color: #2BB24C;
+    --main-gray: rgb(173, 173, 173);
+
+    --page-title: 30px;
+
+    --sidebar-background: #f6f7f8;
+    --icon-color: rgb(78, 78, 78);
+
+    font-family: Helvetica, Arial, sans-serif
+} */
+
+* {
+    box-sizing: border-box;
+}
+
+/* html {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--main-background);
+} */
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+*:focus {
+    outline: none;
+}
+
+input:focus {
+    outline: 1px solid var(--main-color);
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+/* .app-container {
+    display: grid;
+    grid-template: 100% / 48px 270px auto;
+    grid-template-areas:
+        "navbar sidebar main-content";
+    width: 100%;
+    height: 100%;
+} */
+
+
+/* .site-logo {
+    display: flex;
+    justify-content: center;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 30px;
+} */
+
+/* .site-logo__link {
+    width: 34px;
+    height: 100%;
+    display: block;
+} */
