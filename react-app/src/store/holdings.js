@@ -20,8 +20,7 @@ export const getHoldings = () => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        dispatch(load(data));
+        dispatch(load(data.holdings));
         return data;
     }
 }
@@ -30,10 +29,14 @@ export const getHoldings = () => async (dispatch) => {
 const initialState = {}
 
 const holdingReducer = (state = initialState, action) => {
-    // let newState
+    let newState;
     switch (action.type) {
         case LOAD_HOLDINGS:
-            return {};
+            newState = {};
+            action.holdings.forEach(holding => {
+                newState[holding.id] = holding
+            })
+            return newState;
         default:
             return state;
     }

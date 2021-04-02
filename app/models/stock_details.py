@@ -1,6 +1,9 @@
 from .db import db
 from sqlalchemy.schema import ForeignKey
 from sqlalchemy.orm import relationship
+import finnhub
+import os
+import requests
 
 
 class Stock_Details(db.Model):
@@ -23,5 +26,5 @@ class Stock_Details(db.Model):
             "user_id": self.user_id,
             "date_bought": self.date_bought,
             "buy_price": self.buy_price,
-            "num_of_shares": self.num_of_shares
+            "num_of_shares": self.num_of_shares,
         }
