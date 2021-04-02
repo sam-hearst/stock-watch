@@ -31,7 +31,12 @@ function Portfolio() {
     return (
         <>
             <div className="portfolio-container">
-                <div>My holdings</div>
+                <div className="portfolio-title">
+                    <div>My holdings</div>
+                    <div>
+                        <i className="fas fa-cog"></i>
+                    </div>
+                </div>
                 <div className="holdings-container">
                     {portfolioArr.map((holding) => {
                         return (
