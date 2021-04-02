@@ -22,4 +22,16 @@ nav {
 
 .dropdown-container {
     position: absolute;
+    width: 296px;
+    right: -12px;
+    border: 1px solid blue;
+}
+
+.dropdown-container > div:hover {
+    background-color: rgba(0,0,0,.05);
+}
+
+.dropdown-container__account {
+    display: flex;
+    flex-direction: row;
 }

@@ -26,11 +26,11 @@ function AccountButton({ setAuthenticated }) {
             <div onClick={handleClick}>Account</div>
             {showDropDown && (
                 <div className="dropdown-container">
-                    <div>
+                    <div className="dropdown-container__account">
                         <div>
                             <i className="fas fa-briefcase"></i>
                         </div>
-                        Account
+                        <div>Account</div>
                     </div>
                     <div>
                         <LogoutButton setAuthenticated={setAuthenticated} />

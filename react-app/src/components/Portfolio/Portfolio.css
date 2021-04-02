@@ -1,6 +1,12 @@
 .portfolio-container {
     width: 323.77778px;
-    padding: 24px;
+    padding: 20px 70px;
+}
+
+.portfolio-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .holding-container {
