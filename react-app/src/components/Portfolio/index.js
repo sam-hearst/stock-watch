@@ -40,8 +40,8 @@ function Portfolio() {
                 <div className="holdings-container">
                     {portfolioArr.map((holding) => {
                         return (
-                            <Link key={holding.id} to={`/stocks/${holding.stocker_ticker}`}>
-                                <div className="holding-container">
+                            <div className="holding-container">
+                                <Link key={holding.id} to={`/stocks/${holding.stocker_ticker}`}>
                                     <div className="holding-container__left-side">
                                         <div>
                                             {holding.stocker_ticker}
@@ -58,8 +58,8 @@ function Portfolio() {
                                             {totalReturn(holding.quote.c, holding.stock_details[0].buy_price)}
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
                         )
                     })}
                 </div>

@@ -1,21 +1,30 @@
 .portfolio-container {
-    width: 323.77778px;
-    padding: 20px 70px;
+    box-shadow: 0px 12px 24px rgba(0,0,0,0.06),
+    0px -12px 24px rgba(0,0,0,0.06);
+    border-radius: 4px;
 }
 
 .portfolio-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 15px 24px;
+    border-top: 1px solid rgb(227,233,237);
+    border-bottom: 1px solid rgb(227,233,237);
 }
 
 .holding-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    padding: 10px 24px;
+}
+
+.holding-container:hover {
+    background-color: rgb(245,248,250);
 }
 
 .holdings-container a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     text-decoration: none;
     color: inherit;
 }

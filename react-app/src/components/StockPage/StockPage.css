@@ -13,3 +13,9 @@
     height: 338px;
     width: 755px;
 }
+
+.transaction-form {
+    width: 323.77778px;
+    padding: 20px 20px;
+    position: sticky;
+}
