@@ -8,21 +8,27 @@ const NavBar = ({ setAuthenticated }) => {
     return (
         <nav>
             <div className="nav-container">
-                <div>
-                    <NavLink to="/" exact={true} activeClassName="active">
-                        <div>
-                            <i className="fas fa-binoculars"></i>
-                        </div>
-                    </NavLink>
+                <div className="nav-container__left-side">
+                    <div className="nav-container__main-icon">
+                        <NavLink to="/" exact={true} activeClassName="active">
+                            <div>
+                                <i className="fas fa-binoculars"></i>
+                            </div>
+                        </NavLink>
+                    </div>
+                    <div className="nav-container__searchbar">
+                        <SearchBar />
+                    </div>
                 </div>
-                <div>
-                    <SearchBar />
-                </div>
-                <div>
-                    Portfolio
-                </div>
-                <div>
-                    <AccountButton setAuthenticated={setAuthenticated}/>
+                <div className="nav-container__right-side">
+                    <div className="nav-container__portfolio">
+                        <NavLink to="/">
+                            <span>Portfolio</span>
+                        </NavLink>
+                    </div>
+                    <div className="nav-container__account">
+                        <AccountButton setAuthenticated={setAuthenticated} />
+                    </div>
                 </div>
             </div>
         </nav>
