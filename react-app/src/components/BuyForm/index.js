@@ -41,12 +41,12 @@ function BuyForm({ stock }) {
                     Buy {ticker}
                 </div>
                 <div className="order-form__content">
-                    <div>
+                    <div className="order-form__shares">
                         <label htmlFor="shares">Shares</label>
                         <input
                             name="shares"
-                            type="number"
-                            placeholder="Enter number of shares"
+                            type="text"
+                            placeholder="0"
                             value={numShares}
                             onChange={(e) => setNumShares(e.target.value)}
                         />
