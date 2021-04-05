@@ -1,7 +1,78 @@
+.main-up-form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+}
+
+
+.upForm-photo {
+    flex: 1 1 50%;
+    height: 100%;
+    width: 50%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+
 .upForm-container {
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
-    width: 304px;
-    padding-top: 50px;
+    width: 50%;
+    height: 400px;
+    margin-left: 52px;
+    margin-right: 52px;
+}
+
+.upForm-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.up-form__title {
+    align-self: flex-start;
+    margin-bottom: 40px;
+}
+
+.upForm__inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.upForm__inputs input {
+    width: 75%;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.upForm__inputs label {
+    margin: 10px 0px;
+}
+
+.upform__other-form {
+    align-self: flex-start;
+    padding: 14px 0px;
+}
+
+.upform__other-form a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-weight: 500;
+    font-size: 12.5px;
+}
+
+.upform__btn {
+    align-self: flex-start;
+    margin-top: 70px;
+}
+
+.upform__btn > button {
+    height: 48px;
+    padding: 0 48px;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: var(--main-color)
 }
