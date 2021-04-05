@@ -18,3 +18,11 @@ def get_graph(ticker):
         ticker, 'W', timestamp-3456000, timestamp)
 
     return {"res": res}
+
+
+@stock_routes.route("/info/<ticker>")
+def get_stock(ticker):
+
+    stock = Stock.query.filter_by(stock_ticker=ticker).first()
+
+    return {"stock": stock.to_dict()}

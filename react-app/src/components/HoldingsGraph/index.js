@@ -11,12 +11,10 @@ function HoldingsGraph(props) {
     useEffect(() => {
         if (props.user) {
             async function getHoldingsData(user) {
-                console.log(user.user.id);
                 const res = await fetch(`/api/holdings/${user.user.id}`)
 
                 if (res.ok) {
                     const data = await res.json();
-                    console.log(data.data);
                     setGraphData(data.data);
                 }
                 setLoading(false);

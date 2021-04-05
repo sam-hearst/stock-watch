@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Stock_Details, Stock
+from app.models import db, User, Stock_Details, Stock
 from app.utils import get_data_pts
+from datetime import date
 import finnhub
 import os
 import requests
@@ -33,3 +34,19 @@ def holding_ticks(user_id):
     right_data = [round(data_pt, 2) for data_pt in data]
 
     return {"data": right_data}
+
+
+@holding_routes.route("/", methods=["POST"])
+def add_holding():
+
+    data = request.json
+    new_holding = Stock_Details(stock_id=data["stockId"],
+                                user_id=data["userId"], date_bought=date.today(),
+                                buy_price=data["buyPrice"], num_of_shares=data["numShares"])
+
+    db.session.add(new_holding)
+    db.session.commit()
+
+    holding = Stock.query.get(data["stockId"])
+
+    return {"holding": holding.to_dict()}

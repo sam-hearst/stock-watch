@@ -1,3 +1,13 @@
+.stock-page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1024px;
+    padding-top: 90px;
+}
+
+
 .stock__graph {
     position: relative;
     height: 338px;

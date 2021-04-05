@@ -15,7 +15,6 @@ function StockGraph(props) {
 
                 if (res.ok) {
                     const data = await res.json();
-                    console.log(data.res.c);
                     setGraphData(data.res.c)
                 }
                 setLoading(false);
@@ -54,8 +53,7 @@ function StockGraph(props) {
 
     return (
         <>
-            <h2>I'm working too</h2>
-            <Line data={data} legend={legend} options={options}/>
+            <Line data={data} legend={legend} options={options} />
         </>
     )
 }
