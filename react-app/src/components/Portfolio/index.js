@@ -40,8 +40,8 @@ function Portfolio() {
                 <div className="holdings-container">
                     {portfolioArr.map((holding) => {
                         return (
-                            <div className="holding-container">
-                                <Link key={holding.id} to={`/stocks/${holding.stocker_ticker}`}>
+                            <div key={holding.id}  className="holding-container">
+                                <Link to={`/stocks/${holding.stocker_ticker}`}>
                                     <div className="holding-container__left-side">
                                         <div>
                                             {holding.stocker_ticker}

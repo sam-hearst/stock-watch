@@ -6,7 +6,7 @@ import time
 
 def get_data_pts(tickers, shares):
     timestamp = int(time.time())  # unix timestamp
-    finnhub_client = finnhub.Client(os.environ.get("FINNHUB_API_KEY"))
+    finnhub_client = finnhub.Client(os.environ.get("FINNHUB_API_KEY_TOO"))
 
     lst = []
 

@@ -40,8 +40,8 @@ function StockGraph(props) {
         responsive: true,
         maintainAspectRatio: true,
         title: {
-            display: true,
-            text: ticker
+            display: false,
+            text: ""
         }
     }
 

@@ -3,8 +3,17 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0 auto;
-    width: 1024px;
+    width: 1100px;
     padding-top: 90px;
+}
+
+.main-content__holdings-info {
+    margin-bottom: 17px;
+}
+
+.main-content__holdings-info > span {
+    font-size: 2rem;
+    font-weight: 500;
 }
 
 .holdings-graph {
@@ -12,8 +21,22 @@
     height: 349px;
 }
 
+.main-content__buying-power {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid var(--main-border);
+    border-bottom: 1px solid var(--main-border);
+    padding: 20px 0px;
+}
+
+.main-content__buying-power > span {
+    font-weight: 600;
+}
+
 .portfolio {
     width: 323.77778px;
     padding: 20px 30px;
+    padding-top: 65px;
     position: sticky;
 }

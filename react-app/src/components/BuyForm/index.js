@@ -12,7 +12,7 @@ function BuyForm({ stock }) {
     const sessionUser = useSelector(state => state.session.user)
 
     const estimatedCost = (quote, numShares) => {
-        return `$${quote*numShares}`
+        return `$${(quote*numShares).toFixed(2)}`
     }
 
     const handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ function BuyForm({ stock }) {
                     </div>
                     <div className="order-form__quote">
                         <span>Market Price</span>
-                        <span>{`$${stock?.quote.c}`}</span>
+                        <span>{`$${(stock?.quote.c)?.toFixed(2)}`}</span>
                     </div>
                     <div className="order-form__est-cost">
                         <span>Estimated Cost</span>
