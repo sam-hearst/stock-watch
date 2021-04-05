@@ -25,20 +25,22 @@ function AccountButton({ setAuthenticated }) {
         <>
             <div onClick={handleClick}>Account</div>
             {showDropDown && (
-                <div className="dropdown-container">
-                    <div className="dropdown-container__account">
-                        <div>
-                            <i className="fas fa-briefcase"></i>
-                        </div>
-                        <div>Account</div>
+            <div className="dropdown-container"
+            style={{ backgroundColor: "white", opacity: "1"}}
+            >
+                <div className="dropdown-container__account">
+                    <div>
+                        <i className="fas fa-briefcase"></i>
                     </div>
-                    <div className="dropdown-container__sign-out">
-                        <div>
-                            <i className="fas fa-sign-out-alt"></i>
-                        </div>
-                        <LogoutButton setAuthenticated={setAuthenticated} />
-                    </div>
+                    <div>Account</div>
                 </div>
+                <div className="dropdown-container__sign-out">
+                    <div>
+                        <i className="fas fa-sign-out-alt"></i>
+                    </div>
+                    <LogoutButton setAuthenticated={setAuthenticated} />
+                </div>
+            </div>
             )}
         </>
     )

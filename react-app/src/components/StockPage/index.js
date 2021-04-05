@@ -24,6 +24,10 @@ function StockPage() {
     return (
         <div className="stock-page-container">
             <div className="stock__graph">
+                <div className="stock__info">
+                    <span>{ticker}</span>
+                    <span>{stock && `$${stock.quote.c.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}</span>
+                </div>
                 <StockGraph ticker={ticker} />
             </div>
             <div className="transaction-form">

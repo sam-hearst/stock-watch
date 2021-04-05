@@ -1,6 +1,6 @@
 :root {
     --main-background: #fff;
-    --main-border: #eee;
+    --main-border: rgb(227,233,237);
     --main-padding: 20px;
     --main-color: #0870c5;
     --main-gray: rgb(173, 173, 173);
@@ -15,6 +15,7 @@
 
 * {
     box-sizing: border-box;
+    opacity: 1;
 }
 
 body {
