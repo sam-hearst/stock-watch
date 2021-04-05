@@ -32,7 +32,10 @@ function AccountButton({ setAuthenticated }) {
                         </div>
                         <div>Account</div>
                     </div>
-                    <div>
+                    <div className="dropdown-container__sign-out">
+                        <div>
+                            <i className="fas fa-sign-out-alt"></i>
+                        </div>
                         <LogoutButton setAuthenticated={setAuthenticated} />
                     </div>
                 </div>

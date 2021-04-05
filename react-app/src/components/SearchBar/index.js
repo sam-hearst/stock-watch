@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import "./SearchBar.css"
 
 const SearchBar = () => {
     const history = useHistory();
@@ -11,11 +12,14 @@ const SearchBar = () => {
         setSearchValue('');
     }
 
-    const BarStyling = { width: "20rem", background: "#F2F1F9", border: "none", padding: "0.5rem" };
+    const BarStyling = { width: "20rem", background: "#F2F1F9", border: "none", padding: "0.5rem", paddingLeft: "25px" };
 
     return (
         <div className="search-container">
-            <form onSubmit={onSubmit}>
+            <form className="search-form" onSubmit={onSubmit}>
+                <div id="search-button" type="submit">
+                    <i className="fas fa-search" />
+                </div>
                 <input
                     style={BarStyling}
                     className="search-input"
@@ -25,9 +29,7 @@ const SearchBar = () => {
                     onChange={(e) => setSearchValue(e.target.value)}
                 >
                 </input>
-                <button id="search-button" type="submit">
-                    <i className="fas fa-search" />
-                </button>
+
             </form>
         </div>
     );

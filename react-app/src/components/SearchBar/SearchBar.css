@@ -1,0 +1,14 @@
+#search-button {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    left: 20px;
+    top: 1px;
+}
+
+
+.search-form input {
+    line-height: 20px;
+    border-radius: 4px;
+}
