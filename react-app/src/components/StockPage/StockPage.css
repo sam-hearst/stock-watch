@@ -7,6 +7,10 @@
     padding-top: 110px;
 }
 
+.stock-page__left-side {
+    width: 60%;
+}
+
 .stock__info {
     display: flex;
     flex-direction: column;
@@ -21,14 +25,14 @@
 .stock__graph {
     position: relative;
     height: 375px;
-    width: 715px;
     padding-top: 5px;
 }
 
 .transaction-form {
-    width: 323.77778px;
-    padding: 20px 20px;
     position: sticky;
-    margin-left: 30px;
     margin-top: 30px;
+    width: 40%;
+    padding-top: 60px;
+    padding-left: 120px;
+    padding-right: 40px;
 }
