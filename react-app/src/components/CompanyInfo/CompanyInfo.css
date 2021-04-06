@@ -4,3 +4,15 @@
     padding-bottom: 16px;
     margin-bottom: 24px;
 }
+
+.company-info__title > span {
+    font-size: 1.8rem;
+}
+
+
+.company-info__body > span {
+    line-height: 25px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: .2px;
+}

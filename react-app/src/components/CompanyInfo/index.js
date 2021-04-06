@@ -8,10 +8,10 @@ function CompanyInfo({ stock }) {
     return (
         <div className="company-info-container">
             <div className="company-info__title">
-                About
+                <span>About</span>
             </div>
-            <div>
-                {stock?.company_info}
+            <div className="company-info__body">
+                <span>{stock?.company_info}</span>
             </div>
         </div>
     )
