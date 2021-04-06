@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getStockInfo } from "../../store/stocks"
 import StockGraph from '../StockGraph';
 import BuyForm from "../OrderForms/BuyForm"
+import CompanyInfo from "../CompanyInfo"
 import "./StockPage.css"
 
 
@@ -23,15 +24,20 @@ function StockPage() {
 
     return (
         <div className="stock-page-container">
-            <div className="stock__graph">
+            <div className="stock-page__left-side">
                 <div className="stock__info">
                     <span>{ticker}</span>
                     <span>{stock && `$${stock.quote.c.toLocaleString(undefined, { maximumFractionDigits: 2 })}`}</span>
                 </div>
-                <StockGraph ticker={ticker} />
+                <div className="stock__graph">
+                    <StockGraph ticker={ticker} />
+                </div>
+                <div className="company__info">
+                    <CompanyInfo stock={stock} />
+                </div>
             </div>
             <div className="transaction-form">
-                <BuyForm stock={stock}/>
+                <BuyForm stock={stock} />
             </div>
         </div>
     )

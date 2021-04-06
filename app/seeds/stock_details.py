@@ -11,9 +11,17 @@ def seed_stock_details():
     netflix = Stock_Details(
         stock_id=3, user_id=1, date_bought=date.today(), buy_price=533.70, num_of_shares=2)
 
+    tesla = Stock_Details(
+        stock_id=7, user_id=1, date_bought=date.today(), buy_price=692.20, num_of_shares=3)
+
+    gamestop = Stock_Details(
+        stock_id=8, user_id=1, date_bought=date.today(), buy_price=187.40, num_of_shares=4)
+
     db.session.add(apple)
     db.session.add(google)
     db.session.add(netflix)
+    db.session.add(tesla)
+    db.session.add(gamestop)
     db.session.commit()
 
 
