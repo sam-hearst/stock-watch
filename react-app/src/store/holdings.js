@@ -61,6 +61,24 @@ export const buyHolding = (payload) => async (dispatch) => {
 }
 
 
+
+export const updateHolding = (payload) => async (dispatch) => {
+    const response = await fetch(`/api/holdings/${payload.stockTicker}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+    }
+}
+
+
 const initialState = {}
 
 const holdingReducer = (state = initialState, action) => {

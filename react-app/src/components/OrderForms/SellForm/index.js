@@ -1,18 +1,20 @@
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
-import { buyHolding } from "../../store/holdings"
-import "./BuyForm.css"
+import { updateHolding } from "../../../store/holdings"
+import BuyForm from "../BuyForm"
+import "../OrderForms.css"
 
-function BuyForm({ stock }) {
+function SellForm ({ stock }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { ticker } = useParams();
     const [numShares, setNumShares] = useState(0);
+    const [showBuyForm, setShowBuyForm] = useState(false)
     const sessionUser = useSelector(state => state.session.user)
 
     const estimatedCost = (quote, numShares) => {
-        return `$${(quote*numShares).toFixed(2)}`
+        return `$${(quote * numShares).toFixed(2)}`
     }
 
     const handleSubmit = async (e) => {
@@ -23,22 +25,34 @@ function BuyForm({ stock }) {
             stockId: stock.id,
             userId: sessionUser.id,
             numShares: Number(numShares),
-            buyPrice: stock.quote.c,
-            totalCost: Number(numShares)*stock.quote.c
+            sellPrice: stock.quote.c,
+            totalCredit: Number(numShares) * stock.quote.c
         }
 
-        await dispatch(buyHolding(payload));
+        await dispatch(updateHolding(payload));
         setNumShares(0)
 
         history.push("/");
     }
 
+    if (showBuyForm) {
+        return (
+            <BuyForm stock={stock}/>
+        )
+    }
 
-    return (
+    return !showBuyForm && (
         <div className="order-form-container">
             <form onSubmit={handleSubmit}>
                 <div className="order-form__title">
-                    Buy {ticker}
+                    <span id="order-form__buy-switch"
+                        onClick={() => setShowBuyForm(true)}
+                    >
+                        Buy {ticker}</span>
+                    <span id="order-form__sell-switch"
+                    className="order-form__switch-selected"
+                    >
+                        Sell {ticker}</span>
                 </div>
                 <div className="order-form__content">
                     <div className="order-form__shares">
@@ -56,7 +70,7 @@ function BuyForm({ stock }) {
                         <span>{`$${(stock?.quote.c)?.toFixed(2)}`}</span>
                     </div>
                     <div className="order-form__est-cost">
-                        <span>Estimated Cost</span>
+                        <span>Estimated Credit</span>
                         <span>{estimatedCost(stock?.quote.c, numShares)}</span>
                     </div>
                     <div className="order-form__submit">
@@ -68,4 +82,4 @@ function BuyForm({ stock }) {
     )
 }
 
-export default BuyForm
+export default SellForm

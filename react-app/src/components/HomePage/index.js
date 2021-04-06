@@ -9,7 +9,6 @@ function HomePage() {
     const holdings = useSelector(state => state.holdings);
 
     const holdingsArr = Object.values(holdings);
-    console.log(holdingsArr)
 
     function getTotalValue(holdingsArr) {
         let total = 0

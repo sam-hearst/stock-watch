@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getStockInfo } from "../../store/stocks"
 import StockGraph from '../StockGraph';
-import BuyForm from "../BuyForm"
+import BuyForm from "../OrderForms/BuyForm"
 import "./StockPage.css"
 
 
