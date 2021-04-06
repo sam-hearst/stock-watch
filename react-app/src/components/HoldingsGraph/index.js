@@ -52,9 +52,9 @@ function HoldingsGraph(props) {
     if (loading) return null
 
     return (
-        <>
+        <div>
             <Line data={data} legend={legend} options={options} />
-        </>
+        </div>
     )
 }
 

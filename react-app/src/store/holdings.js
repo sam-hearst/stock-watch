@@ -1,6 +1,9 @@
+import { setUser } from "./session"
+
 const LOAD_HOLDINGS = "holdings/LOAD"
 const LOAD_HOLDING = "holding/LOAD"
 const ADD_HOLDING = "holding/ADD"
+const UPDATE_HOLDING = "holding/UPDATE"
 
 const load = (holdings) => {
     return {
@@ -19,6 +22,13 @@ export const loadOneHolding = (holding) => {
 const addHolding = (holding) => {
     return {
         type: ADD_HOLDING,
+        payload: holding
+    }
+}
+
+const alterHolding = (holding) => {
+    return {
+        type: UPDATE_HOLDING,
         payload: holding
     }
 }
@@ -46,7 +56,7 @@ export const getHolding = (ticker) => async (dispatch) => {
 
 export const buyHolding = (payload) => async (dispatch) => {
     console.log("hit here", payload);
-    const response = await fetch(`/api/holdings/`, {
+    const response = await fetch(`/api/holdings/${payload.stockTicker}`, {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: {
@@ -58,11 +68,14 @@ export const buyHolding = (payload) => async (dispatch) => {
     const data = await response.json();
     console.log(data);
     dispatch(addHolding(data.holding));
+    dispatch(setUser(data.user))
+    return data
 }
 
 
 
 export const updateHolding = (payload) => async (dispatch) => {
+    console.log("HITTING UPDATE THUNK", payload)
     const response = await fetch(`/api/holdings/${payload.stockTicker}`, {
         method: "PATCH",
         body: JSON.stringify(payload),
@@ -73,7 +86,8 @@ export const updateHolding = (payload) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        dispatch(alterHolding(data.holding))
+        dispatch(setUser(data.user))
         return data;
     }
 }
@@ -93,6 +107,11 @@ const holdingReducer = (state = initialState, action) => {
         case ADD_HOLDING: {
             newState = Object.assign({}, state, { [action.payload.id]: action.payload })
             return newState;
+        }
+        case UPDATE_HOLDING: {
+            newState = { ...state }
+            newState[action.payload.id] = action.payload
+            return newState
         }
         default:
             return state;
