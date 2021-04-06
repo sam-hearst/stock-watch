@@ -3,7 +3,7 @@ import * as auth from "../services/auth"
 const SET_USER = "session/setUser"
 const REMOVE_USER = "session/removeUser"
 
-const setUser = user => {
+export const setUser = user => {
     return {
         type: SET_USER,
         user

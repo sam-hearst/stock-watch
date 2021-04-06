@@ -46,6 +46,14 @@ nav {
     margin-left: 33px;
 }
 
+.nav-container__account:hover {
+    cursor:pointer
+}
+
+.nav-container__right-side span:hover {
+    color: rgba(0,0,0,.5)
+}
+
 .dropdown-container.dropdown-container {
     border-radius: 4px;
     position: absolute;

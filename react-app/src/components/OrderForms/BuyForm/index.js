@@ -1,11 +1,11 @@
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
-import { buyHolding } from "../../../store/holdings"
+import { buyHolding, updateHolding } from "../../../store/holdings"
 import SellForm from "../SellForm"
 import "../OrderForms.css"
 
-function BuyForm({ stock }) {
+function BuyForm({ isHolding, stock }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { ticker } = useParams();
@@ -29,7 +29,12 @@ function BuyForm({ stock }) {
             totalCost: Number(numShares)*stock.quote.c
         }
 
-        await dispatch(buyHolding(payload));
+        if (isHolding) {
+            await dispatch(updateHolding(payload));
+        } else {
+            await dispatch(buyHolding(payload));
+        }
+
         setNumShares(0)
 
         history.push("/");
@@ -37,7 +42,7 @@ function BuyForm({ stock }) {
 
     if (ShowSellForm) {
         return (
-            <SellForm stock={stock}/>
+            <SellForm isHolding={isHolding} stock={stock}/>
         )
     }
 
@@ -49,9 +54,11 @@ function BuyForm({ stock }) {
                         className="order-form__switch-selected"
                     >
                         Buy {ticker}</span>
-                    <span id="order-form__sell-switch"
-                    onClick={() => setShowSellForm(true)}
-                    >Sell {ticker}</span>
+                    {isHolding && (
+                        <span id="order-form__sell-switch"
+                            onClick={() => setShowSellForm(true)}
+                        >Sell {ticker}</span>
+                    )}
                 </div>
                 <div className="order-form__content">
                     <div className="order-form__shares">

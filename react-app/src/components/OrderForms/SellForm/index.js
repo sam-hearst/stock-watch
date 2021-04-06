@@ -5,13 +5,14 @@ import { updateHolding } from "../../../store/holdings"
 import BuyForm from "../BuyForm"
 import "../OrderForms.css"
 
-function SellForm ({ stock }) {
+function SellForm ({ isHolding, stock }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { ticker } = useParams();
     const [numShares, setNumShares] = useState(0);
     const [showBuyForm, setShowBuyForm] = useState(false)
     const sessionUser = useSelector(state => state.session.user)
+    console.log(isHolding);
 
     const estimatedCost = (quote, numShares) => {
         return `$${(quote * numShares).toFixed(2)}`
@@ -29,7 +30,10 @@ function SellForm ({ stock }) {
             totalCredit: Number(numShares) * stock.quote.c
         }
 
-        await dispatch(updateHolding(payload));
+        if (isHolding) {
+            await dispatch(updateHolding(payload));
+        }
+        
         setNumShares(0)
 
         history.push("/");
@@ -37,7 +41,7 @@ function SellForm ({ stock }) {
 
     if (showBuyForm) {
         return (
-            <BuyForm stock={stock}/>
+            <BuyForm isHolding={isHolding} stock={stock}/>
         )
     }
 

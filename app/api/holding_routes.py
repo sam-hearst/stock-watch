@@ -36,38 +36,65 @@ def holding_ticks(user_id):
     return {"data": right_data}
 
 
-@holding_routes.route("/", methods=["POST"])
-def add_holding():
+@holding_routes.route("/<ticker>", methods=["POST"])
+def add_holding(ticker):
 
     data = request.json
+
+    user = User.query.get(data["userId"])
+
+    user.buying_power = user.buying_power - data["totalCost"]
+
     new_holding = Stock_Details(stock_id=data["stockId"],
                                 user_id=data["userId"], date_bought=date.today(),
                                 buy_price=data["buyPrice"], num_of_shares=data["numShares"])
 
+    db.session.add(user)
     db.session.add(new_holding)
     db.session.commit()
 
     holding = Stock.query.get(data["stockId"])
 
-    return {"holding": holding.to_dict()}
+    return {"holding": holding.to_dict(),
+            "user": user.to_dict()}
 
 
 @holding_routes.route("/<ticker>", methods=["PATCH"])
 def update_holding(ticker):
 
     data = request.json
-    holding = Stock_Details.query.filter(
-        Stock_Details.stock_id == data["stockId"]).filter(
-            Stock_Details.user_id == data["userId"]).all()
 
-    holding_standardized = holding[0].to_dict_w_user()
+    # CHECKING if this is buying or selling part of a holding
+    # SELLING
+    if "totalCredit" in data.keys():
+        holding = Stock_Details.query.filter(
+            Stock_Details.stock_id == data["stockId"]).filter(
+                Stock_Details.user_id == data["userId"]).all()
 
-    holding[0].num_of_shares = holding_standardized["num_of_shares"] - data["numShares"]
-    holding[0].user.buying_power = holding_standardized["user"]["buying_power"] + data["totalCredit"]
+        holding_standardized = holding[0].to_dict_w_user()
 
-    db.session.add(holding[0])
-    db.session.commit()
+        holding[0].num_of_shares = holding_standardized["num_of_shares"] - data["numShares"]
+        holding[0].user.buying_power = holding_standardized["user"]["buying_power"] + data["totalCredit"]
 
-    print("HOLDING", holding_standardized)
+        db.session.add(holding[0])
+        db.session.commit()
+        return {"holding": holding[0].stock.to_dict(),
+                "user": holding_standardized["user"]}
+    # BUYING
+    elif "totalCost" in data.keys():
+        holding = Stock_Details.query.filter(
+            Stock_Details.stock_id == data["stockId"]).filter(
+                Stock_Details.user_id == data["userId"]).all()
 
-    return {"yes": "Im working"}
+        holding_standardized = holding[0].to_dict_w_user()
+        holding[0].num_of_shares = holding_standardized["num_of_shares"] + \
+            data["numShares"]
+
+        holding[0].user.buying_power = holding_standardized["user"]["buying_power"] - \
+            data["totalCost"]
+
+        db.session.add(holding[0])
+        db.session.commit()
+
+        return {"holding": holding[0].stock.to_dict(),
+                "user": holding_standardized["user"]}
