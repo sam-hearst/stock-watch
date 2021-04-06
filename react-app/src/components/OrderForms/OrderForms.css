@@ -11,6 +11,20 @@
     border-bottom: 1px solid rgb(227,233,237);
 }
 
+.order-form__title > span {
+    padding: 3px 0px;
+    border-bottom: 2px solid transparent
+}
+
+.order-form__switch-selected {
+    color: var(--main-color);
+    border-bottom: 2px solid var(--main-color)
+}
+
+#order-form__sell-switch {
+    padding-left: 12px
+}
+
 .order-form__content > div{
     padding: 10px 24px;
     display: flex;

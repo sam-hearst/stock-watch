@@ -50,3 +50,24 @@ def add_holding():
     holding = Stock.query.get(data["stockId"])
 
     return {"holding": holding.to_dict()}
+
+
+@holding_routes.route("/<ticker>", methods=["PATCH"])
+def update_holding(ticker):
+
+    data = request.json
+    holding = Stock_Details.query.filter(
+        Stock_Details.stock_id == data["stockId"]).filter(
+            Stock_Details.user_id == data["userId"]).all()
+
+    holding_standardized = holding[0].to_dict_w_user()
+
+    holding[0].num_of_shares = holding_standardized["num_of_shares"] - data["numShares"]
+    holding[0].user.buying_power = holding_standardized["user"]["buying_power"] + data["totalCredit"]
+
+    db.session.add(holding[0])
+    db.session.commit()
+
+    print("HOLDING", holding_standardized)
+
+    return {"yes": "Im working"}
