@@ -98,3 +98,31 @@ def update_holding(ticker):
 
         return {"holding": holding[0].stock.to_dict(),
                 "user": holding_standardized["user"]}
+
+
+@holding_routes.route("/<ticker>", methods=["DELETE"])
+def delete_holding(ticker):
+
+    data = request.json
+    stock_id = data["stockId"]
+    user_id = data["userId"]
+
+    holding = Stock_Details.query.filter(
+        Stock_Details.stock_id == stock_id).filter(
+        Stock_Details.user_id == user_id).all()
+
+    stock = holding[0].stock.to_dict()
+
+    print("STOCCKKKKK", stock)
+
+    user = User.query.get(user_id)
+
+    user.buying_power = user.buying_power + data["totalCredit"]
+
+    db.session.add(user)
+    db.session.delete(holding[0])
+    db.session.commit()
+    print("HOLDINGG", holding[0])
+
+    return {"holding": stock,
+            "user": user.to_dict()}

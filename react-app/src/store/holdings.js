@@ -4,6 +4,7 @@ const LOAD_HOLDINGS = "holdings/LOAD"
 const LOAD_HOLDING = "holding/LOAD"
 const ADD_HOLDING = "holding/ADD"
 const UPDATE_HOLDING = "holding/UPDATE"
+const REMOVE_HOLDING = "holding/DELETE"
 
 const load = (holdings) => {
     return {
@@ -30,6 +31,13 @@ const alterHolding = (holding) => {
     return {
         type: UPDATE_HOLDING,
         payload: holding
+    }
+}
+
+const removeOne = (stockId) => {
+    return {
+        type: REMOVE_HOLDING,
+        payload: stockId
     }
 }
 
@@ -92,6 +100,24 @@ export const updateHolding = (payload) => async (dispatch) => {
     }
 }
 
+export const deleteHolding = (payload) => async (dispatch) => {
+    console.log("Hitting Delete Thunk", payload)
+    const response = await fetch(`/api/holdings/${payload.stockTicker}`, {
+        method: "DELETE",
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        }
+    })
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        // dispatch(removeOne(data.holding.id))
+        dispatch(setUser(data.user))
+        return data
+    }
+}
+
 
 const initialState = {}
 
@@ -112,6 +138,11 @@ const holdingReducer = (state = initialState, action) => {
             newState = { ...state }
             newState[action.payload.id] = action.payload
             return newState
+        }
+        case REMOVE_HOLDING: {
+            newState = { ...state }
+            delete newState[action.payload]
+            return newState;
         }
         default:
             return state;
