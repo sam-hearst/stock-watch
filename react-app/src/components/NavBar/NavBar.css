@@ -24,6 +24,10 @@ nav {
     height: 100%;
 }
 
+.nav-container__main-icon:hover {
+    color: rgba(0,0,0,.5)
+}
+
 .nav-container__right-side {
     display: flex;
     flex-direction: row;

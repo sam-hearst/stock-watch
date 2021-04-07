@@ -14,7 +14,7 @@ def get_data_pts(tickers, shares):
         ticker = tickers[i]
         num_shares_ticker = shares[i]
         res = finnhub_client.stock_candles(
-            ticker, 'W', timestamp-5184000, timestamp)
+            ticker, 'W', timestamp-5450000, timestamp)
         close_prices = res["c"]
         data = [close_price*num_shares_ticker for close_price in close_prices]
         lst.append(data)

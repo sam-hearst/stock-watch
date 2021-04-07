@@ -5,7 +5,7 @@ import { buyHolding, updateHolding } from "../../../store/holdings"
 import SellForm from "../SellForm"
 import "../OrderForms.css"
 
-function BuyForm({ isHolding, stock }) {
+function BuyForm({ totalShares, isHolding, stock }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { ticker } = useParams();
@@ -42,7 +42,7 @@ function BuyForm({ isHolding, stock }) {
 
     if (ShowSellForm) {
         return (
-            <SellForm isHolding={isHolding} stock={stock}/>
+            <SellForm totalShares={totalShares} isHolding={isHolding} stock={stock}/>
         )
     }
 

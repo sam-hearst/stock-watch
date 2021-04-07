@@ -1,18 +1,18 @@
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
-import { updateHolding } from "../../../store/holdings"
+import { updateHolding, deleteHolding } from "../../../store/holdings"
 import BuyForm from "../BuyForm"
 import "../OrderForms.css"
 
-function SellForm ({ isHolding, stock }) {
+function SellForm({ totalShares, isHolding, stock }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { ticker } = useParams();
     const [numShares, setNumShares] = useState(0);
     const [showBuyForm, setShowBuyForm] = useState(false)
     const sessionUser = useSelector(state => state.session.user)
-    console.log(isHolding);
+    console.log(totalShares);
 
     const estimatedCost = (quote, numShares) => {
         return `$${(quote * numShares).toFixed(2)}`
@@ -31,9 +31,14 @@ function SellForm ({ isHolding, stock }) {
         }
 
         if (isHolding) {
-            await dispatch(updateHolding(payload));
+            // this if statement is checking to see if its a delete or update route
+            if (payload.numShares === totalShares) {
+                await dispatch(deleteHolding(payload))
+            } else {
+                await dispatch(updateHolding(payload));
+            }
         }
-        
+
         setNumShares(0)
 
         history.push("/");
@@ -41,7 +46,7 @@ function SellForm ({ isHolding, stock }) {
 
     if (showBuyForm) {
         return (
-            <BuyForm isHolding={isHolding} stock={stock}/>
+            <BuyForm isHolding={isHolding} stock={stock} />
         )
     }
 
@@ -54,7 +59,7 @@ function SellForm ({ isHolding, stock }) {
                     >
                         Buy {ticker}</span>
                     <span id="order-form__sell-switch"
-                    className="order-form__switch-selected"
+                        className="order-form__switch-selected"
                     >
                         Sell {ticker}</span>
                 </div>

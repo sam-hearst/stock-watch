@@ -24,7 +24,7 @@ function HoldingsGraph(props) {
     }, [user, props.user])
 
     const data = {
-        labels: ["8 weeks", "7 weeks","6 weeks","5 weeks", "4 weeks", "3 weeks", "2 weeks", "1 weeks", "0 weeks"],
+        labels: ["8 weeks", "7 weeks", "6 weeks", "5 weeks", "4 weeks", "3 weeks", "2 weeks", "1 week", "0 weeks"],
         datasets: [
             {
                 label: "",

@@ -16,6 +16,9 @@ function StockPage() {
     const holdings = useSelector(state => state.holdings);
     const isHolding = holdings[stock?.id] ? true : false
 
+    const totalShares = holdings[stock?.id]?.stock_details[0].num_of_shares
+
+
 
 
     useEffect(() => {
@@ -50,7 +53,7 @@ function StockPage() {
                 </div>
             </div>
             <div className="transaction-form">
-                <BuyForm isHolding={isHolding} stock={stock} />
+                <BuyForm totalShares={totalShares} isHolding={isHolding} stock={stock} />
             </div>
         </div>
     )
