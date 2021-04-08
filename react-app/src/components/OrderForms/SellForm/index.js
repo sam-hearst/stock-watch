@@ -46,7 +46,7 @@ function SellForm({ totalShares, isHolding, stock }) {
 
     if (showBuyForm) {
         return (
-            <BuyForm isHolding={isHolding} stock={stock} />
+            <BuyForm totalShares={totalShares} isHolding={isHolding} stock={stock} />
         )
     }
 

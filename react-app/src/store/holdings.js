@@ -63,7 +63,7 @@ export const getHolding = (ticker) => async (dispatch) => {
 }
 
 export const buyHolding = (payload) => async (dispatch) => {
-    console.log("hit here", payload);
+    console.log("Hitting buy holding THUNK", payload);
     const response = await fetch(`/api/holdings/${payload.stockTicker}`, {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -111,8 +111,8 @@ export const deleteHolding = (payload) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        // dispatch(removeOne(data.holding.id))
+        console.log(data.holding.id);
+        dispatch(removeOne(data.holding.id))
         dispatch(setUser(data.user))
         return data
     }
