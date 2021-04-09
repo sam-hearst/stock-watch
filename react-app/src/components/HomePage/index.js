@@ -15,7 +15,7 @@ function HomePage() {
 
         for (let i = 0; i < holdingsArr.length; i++) {
             let holding = holdingsArr[i]
-            let currentPrice = holding.quote.c
+            let currentPrice = holding?.quote?.c
             let numShares = holding.stock_details[0].num_of_shares
             let totalInHolding = currentPrice*numShares
             total = total + totalInHolding
@@ -37,7 +37,7 @@ function HomePage() {
                 </div>
                 <div className="main-content__buying-power">
                     <span>Buying Power</span>
-                    <span>{`$${(user.user.buying_power).toFixed(2)}`}</span>
+                    <span>{`$${(user.user?.buying_power)?.toFixed(2)}`}</span>
                 </div>
             </div>
             <div className="portfolio">

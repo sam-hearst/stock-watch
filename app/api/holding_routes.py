@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Stock_Details, Stock
 from app.utils import get_data_pts
+from app.utils import convert_holdings
 from datetime import date
+import datetime
 import finnhub
 import os
 import requests
@@ -16,20 +18,35 @@ holding_routes = Blueprint("holdings", __name__)
 def holdings():
     if current_user.is_authenticated:
         current_user_dict = current_user.to_dict()
-        holdings = Stock.query.join(Stock_Details).filter(
-            Stock_Details.user_id == current_user_dict["id"])
+        holdings_info = Stock_Details.query.filter(
+            Stock_Details.user_id == current_user_dict["id"]).all()
 
-    return {"holdings": [holding.to_dict() for holding in holdings]}
+        holdings_info_converted = [holding_info.to_dict() for holding_info in holdings_info]
+        holdings = [holding_info.stock.to_dict() for holding_info in holdings_info]
+
+        converted = convert_holdings(holdings, holdings_info_converted)
+
+    return {"holdings": converted}
 
 
 @holding_routes.route('/<int:user_id>')
+@login_required
 def holding_ticks(user_id):
-    holdings = Stock.query.join(Stock_Details).filter(
-        Stock_Details.user_id == user_id)
+    holdings_info = Stock_Details.query.filter(
+        Stock_Details.user_id == user_id).all()
 
-    holdings = [holding.to_dict() for holding in holdings]
-    tickers = [holding["stocker_ticker"] for holding in holdings]
-    num_shares = [holding["stock_details"][0]["num_of_shares"] for holding in holdings]
+    holdings_info_converted = [holding_info.to_dict()
+                               for holding_info in holdings_info]
+    holdings = [holding_info.stock.to_dict() for holding_info in holdings_info]
+
+    converted_holdings = convert_holdings(holdings, holdings_info_converted)
+
+    tickers = [converted_holding["stocker_ticker"] for
+               converted_holding in converted_holdings]
+
+    num_shares = [converted_holding["stock_details"][0]["num_of_shares"]
+                  for converted_holding in converted_holdings]
+
     data = get_data_pts(tickers, num_shares)
     right_data = [round(data_pt, 2) for data_pt in data]
 
@@ -40,10 +57,14 @@ def holding_ticks(user_id):
 def add_holding(ticker):
 
     data = request.json
+    user_id = data["userId"]
+    stock_id = data["stockId"]
+
+    print("DATAAA", data)
 
     user = User.query.get(data["userId"])
 
-    user.buying_power = user.buying_power - data["totalCost"]
+    user.buying_power -= data["totalCost"]
 
     new_holding = Stock_Details(stock_id=data["stockId"],
                                 user_id=data["userId"], date_bought=date.today(),
@@ -53,9 +74,13 @@ def add_holding(ticker):
     db.session.add(new_holding)
     db.session.commit()
 
-    holding = Stock.query.get(data["stockId"])
+    standardized_new_holding = new_holding.stock.to_dict()
 
-    return {"holding": holding.to_dict(),
+    standardized_new_holding["stock_details"] = [new_holding.to_dict()]
+
+    print("NEW HOLDING", standardized_new_holding)
+
+    return {"holding": standardized_new_holding,
             "user": user.to_dict()}
 
 
@@ -67,19 +92,31 @@ def update_holding(ticker):
     # CHECKING if this is buying or selling part of a holding
     # SELLING
     if "totalCredit" in data.keys():
+
+        user = User.query.get(data["userId"])
+
         holding = Stock_Details.query.filter(
             Stock_Details.stock_id == data["stockId"]).filter(
                 Stock_Details.user_id == data["userId"]).all()
 
-        holding_standardized = holding[0].to_dict_w_user()
+        print("HOLDING", holding)
 
-        holding[0].num_of_shares = holding_standardized["num_of_shares"] - data["numShares"]
-        holding[0].user.buying_power = holding_standardized["user"]["buying_power"] + data["totalCredit"]
+        holding[0].num_of_shares = holding[0].num_of_shares - data["numShares"]
+        user.buying_power = user.buying_power + data["totalCredit"]
 
         db.session.add(holding[0])
+        db.session.add(user)
         db.session.commit()
-        return {"holding": holding[0].stock.to_dict(),
-                "user": holding_standardized["user"]}
+
+        updated_holding = holding[0].stock.to_dict()
+        stock_details = holding[0].to_dict()
+
+        print("UPDATED HOLDING", update_holding)
+        print("STOCK_DETAILS", stock_details)
+
+        return {"holding_details": stock_details,
+                "user": user.to_dict()}
+
     # BUYING
     elif "totalCost" in data.keys():
         holding = Stock_Details.query.filter(

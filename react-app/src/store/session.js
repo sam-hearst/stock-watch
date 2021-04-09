@@ -28,8 +28,9 @@ export const login = (email, password) => async dispatch => {
     return user
 }
 
-export const signup = (username, email, password) => async dispatch => {
-    const user = await auth.signUp(username, email, password)
+export const signup = (first_name, last_name, email, password) => async dispatch => {
+    console.log("Im hitting signup in store!!")
+    const user = await auth.signUp(first_name, last_name, email, password)
     if (user.id) dispatch(setUser(user)) // only set the user state if the route doesn't return errors
     return user
 }
