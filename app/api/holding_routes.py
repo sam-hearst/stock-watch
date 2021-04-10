@@ -119,22 +119,26 @@ def update_holding(ticker):
 
     # BUYING
     elif "totalCost" in data.keys():
+
+        user = User.query.get(data["userId"])
+
         holding = Stock_Details.query.filter(
             Stock_Details.stock_id == data["stockId"]).filter(
                 Stock_Details.user_id == data["userId"]).all()
 
-        holding_standardized = holding[0].to_dict_w_user()
-        holding[0].num_of_shares = holding_standardized["num_of_shares"] + \
-            data["numShares"]
+        holding[0].num_of_shares = holding[0].num_of_shares + data["numShares"]
 
-        holding[0].user.buying_power = holding_standardized["user"]["buying_power"] - \
-            data["totalCost"]
+        user.buying_power = user.buying_power - data["totalCost"]
 
         db.session.add(holding[0])
+        db.session.add(user)
         db.session.commit()
 
-        return {"holding": holding[0].stock.to_dict(),
-                "user": holding_standardized["user"]}
+        updated_holding = holding[0].stock.to_dict()
+        stock_details = holding[0].to_dict()
+
+        return {"holding": stock_details,
+                "user": user.to_dict()}
 
 
 @holding_routes.route("/<ticker>", methods=["DELETE"])
