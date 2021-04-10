@@ -32,6 +32,7 @@ function BuyForm({ totalShares, isHolding, stock }) {
         if (isHolding) {
             await dispatch(updateHolding(payload));
         } else {
+            console.log("Im hitting here!!")
             await dispatch(buyHolding(payload));
         }
 

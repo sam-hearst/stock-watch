@@ -39,3 +39,14 @@ class Stock_Details(db.Model):
             "num_of_shares": self.num_of_shares,
             "user": self.user.to_dict()
         }
+
+    def to_dict_w_stock(self):
+        return {
+            "id": self.id,
+            "stock_id": self.stock_id,
+            "user_id": self.user_id,
+            "date_bought": self.date_bought,
+            "buy_price": self.buy_price,
+            "num_of_shares": self.num_of_shares,
+            "stock": self.stock.to_dict()
+        }

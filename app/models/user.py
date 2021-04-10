@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    buying_power = db.Column(db.Float, nullable=True)
+    buying_power = db.Column(db.Float, nullable=True, default=1000.01)
 
     stock_details = db.relationship("Stock_Details", back_populates="user")
 

@@ -26,5 +26,5 @@ class Stock(db.Model):
             "stocker_ticker": self.stock_ticker,
             "company_info": self.company_info,
             "quote": quote,
-            "stock_details": [stock_detail.to_dict() for stock_detail in self.stock_details]
+            "stock_details": []
         }
