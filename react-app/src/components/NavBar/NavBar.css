@@ -58,6 +58,14 @@ nav {
     color: rgba(0,0,0,.5)
 }
 
+.nav-container__account > span:hover {
+    color: rgba(0,0,0,.5);
+}
+
+.nav-container__portfolio span:hover {
+    color: rgba(0,0,0,.5);
+}
+
 .dropdown-container.dropdown-container {
     border-radius: 4px;
     position: absolute;
