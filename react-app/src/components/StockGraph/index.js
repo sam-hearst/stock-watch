@@ -15,6 +15,7 @@ function StockGraph(props) {
 
                 if (res.ok) {
                     const data = await res.json();
+                    console.log(data); 
                     setGraphData(data.res.c)
                 }
                 setLoading(false);

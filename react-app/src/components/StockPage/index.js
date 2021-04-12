@@ -16,6 +16,7 @@ function StockPage() {
     const holdings = useSelector(state => state.holdings);
     const isHolding = holdings[stock?.id] ? true : false
 
+    // THIS LOGIC IS PASSED INTO BUY AND SELL FORM TO DETERMINE IF ITS AN UPDATE OR DELETE ROUTE
     const totalShares = holdings[stock?.id]?.stock_details[0].num_of_shares
 
 

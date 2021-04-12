@@ -25,4 +25,7 @@ def get_stock(ticker):
 
     stock = Stock.query.filter_by(stock_ticker=ticker).first()
 
+    # if not stock:
+    #     stock()
+
     return {"stock": stock.to_dict()}
