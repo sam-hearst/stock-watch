@@ -15,6 +15,7 @@ function HoldingsGraph(props) {
 
                 if (res.ok) {
                     const data = await res.json();
+                    console.log(data.data);
                     setGraphData(data.data);
                 }
                 setLoading(false);
