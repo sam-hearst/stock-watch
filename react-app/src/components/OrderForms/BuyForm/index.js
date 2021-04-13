@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
 import { buyHolding, updateHolding } from "../../../store/holdings"
+import { createStock } from "../../../store/stocks"
 import SellForm from "../SellForm"
 import "../OrderForms.css"
 
@@ -19,16 +20,37 @@ function BuyForm({ totalShares, isHolding, stock }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let payload;
 
-        const payload = {
-            stockTicker: ticker,
-            stockId: stock.id,
-            userId: sessionUser.id,
-            numShares: Number(numShares),
-            buyPrice: stock.quote.c,
-            totalCost: Number(numShares)*stock.quote.c
+        if (stock.id) {
+            payload = {
+                stockTicker: ticker,
+                stockId: stock.id,
+                userId: sessionUser.id,
+                numShares: Number(numShares),
+                buyPrice: stock.quote.c,
+                totalCost: Number(numShares) * stock.quote.c
+            }
+
+        } else if (!stock.id) {
+            payload = {
+                stockTicker: ticker,
+                userId: sessionUser.id,
+                numShares: Number(numShares),
+                buyPrice: stock.quote.c,
+                totalCost: Number(numShares) * stock.quote.c,
+                company_name: stock.company_name,
+                company_info: stock.company_info,
+            }
+
+            const newStock = await dispatch(createStock(payload))
+
+            payload = { ...payload, stockId: newStock.id }
         }
 
+        console.log("payload after seeded", payload)
+
+        // These if statements check if the stock is already a holding and use different route if is or not
         if (isHolding) {
             await dispatch(updateHolding(payload));
         } else {

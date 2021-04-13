@@ -21,8 +21,10 @@ def holdings():
         holdings_info = Stock_Details.query.filter(
             Stock_Details.user_id == current_user_dict["id"]).all()
 
-        holdings_info_converted = [holding_info.to_dict() for holding_info in holdings_info]
-        holdings = [holding_info.stock.to_dict() for holding_info in holdings_info]
+        holdings_info_converted = [holding_info.to_dict()
+                                   for holding_info in holdings_info]
+        holdings = [holding_info.stock.to_dict()
+                    for holding_info in holdings_info]
 
         converted = convert_holdings(holdings, holdings_info_converted)
 
@@ -58,7 +60,6 @@ def add_holding(ticker):
 
     data = request.json
     user_id = data["userId"]
-    stock_id = data["stockId"]
 
     print("DATAAA", data)
 
