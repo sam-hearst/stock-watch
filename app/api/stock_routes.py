@@ -26,15 +26,15 @@ def get_stock(ticker):
     stock = Stock.query.filter_by(stock_ticker=ticker).first()
 
     if not stock:
+        # if the stock is not seeded, then I use an API to get the information
         finnhub_client = finnhub.Client(os.environ.get("FINNHUB_API_KEY"))
-
 
         url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-profile"
 
         querystring = {"symbol": ticker.upper(), "region": "US"}
 
         headers = {
-            'x-rapidapi-key': "4f0dccc3bamsh277c4cec155d3c9p1d0881jsn3ccd92ae98a8",
+            'x-rapidapi-key': os.environ.get("X_RAPID_API_KEY"),
             'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com"
         }
 
