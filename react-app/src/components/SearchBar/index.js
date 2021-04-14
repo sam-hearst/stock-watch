@@ -4,15 +4,15 @@ import "./SearchBar.css"
 
 const SearchBar = () => {
     const history = useHistory();
-    const [searchValue, setSearchValue ] = useState('')
+    const [searchValue, setSearchValue] = useState('')
 
     function onSubmit(e) {
         e.preventDefault();
-        history.push(`/stocks/${searchValue}`);
+        history.push(`/stocks/${searchValue.toUpperCase()}`);
         setSearchValue('');
     }
 
-    const BarStyling = { width: "20rem", background: "#F2F1F9", border: "none", padding: "0.5rem", paddingLeft: "25px" };
+    const BarStyling = { width: "23rem", background: "#F2F1F9", border: "none", padding: "0.5rem", paddingLeft: "25px" };
 
     return (
         <div className="search-container">
@@ -25,7 +25,7 @@ const SearchBar = () => {
                     className="search-input"
                     type="text"
                     value={searchValue}
-                    placeholder="Start your search"
+                    placeholder="Search for any stock ticker"
                     onChange={(e) => setSearchValue(e.target.value)}
                 >
                 </input>
