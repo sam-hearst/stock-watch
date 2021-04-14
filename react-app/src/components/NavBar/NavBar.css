@@ -28,6 +28,16 @@ nav {
     color: rgba(0,0,0,.5)
 }
 
+.nav-container__main-icon {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container__main-icon div {
+    font-size: 22px;
+}
+
 .nav-container__right-side {
     display: flex;
     flex-direction: row;
@@ -38,7 +48,8 @@ nav {
 }
 
 .nav-container__searchbar {
-    margin-left: 110px;
+    margin-left: 40px;
+    width: 78%;
 }
 
 .nav-container a {

@@ -33,7 +33,7 @@ function AccountButton({ setAuthenticated }) {
             <span onClick={handleClick}>Account</span>
             {showDropDown && (
                 <div className="dropdown-container"
-                    style={{ backgroundColor: "white", opacity: "1" }}
+                    // style={{ backgroundColor: "white", opacity: "1" }}
                 >
                     <div className="dropdown-container__user">
                         <div>
