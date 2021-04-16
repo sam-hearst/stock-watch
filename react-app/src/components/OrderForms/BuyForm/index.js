@@ -41,6 +41,10 @@ function BuyForm({ totalShares, isHolding, stock }) {
                 totalCost: Number(numShares) * stock.quote.c,
                 company_name: stock.company_name,
                 company_info: stock.company_info,
+                num_employees: stock.num_employees,
+                market_cap: stock.market_cap,
+                pe_ratio: stock.pe_ratio,
+                dividend_yield: stock.dividend_yield
             }
 
             const newStock = await dispatch(createStock(payload))

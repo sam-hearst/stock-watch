@@ -46,12 +46,51 @@ def get_stock(ticker):
         company_info = obj["assetProfile"]["longBusinessSummary"]
         quote = finnhub_client.quote(ticker.upper())
 
+        # ---------I am now using a different api, lol
+
+        url = "https://seeking-alpha.p.rapidapi.com/symbols/get-profile"
+
+        querystring = {"symbols": ticker.upper()}
+
+        headers = {
+            'x-rapidapi-key': os.environ.get("X_RAPID_API_KEY"),
+            'x-rapidapi-host': "seeking-alpha.p.rapidapi.com"
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        obj = response.json()
+        num_employees = obj["data"][0]["attributes"]["numberOfEmployees"]
+        market_cap = obj["data"][0]["attributes"]["marketCap"]
+
+        # --------- I am now using one different url
+
+        url = "https://seeking-alpha.p.rapidapi.com/symbols/get-summary"
+
+        querystring = {"symbols": ticker.upper()}
+
+        headers = {
+            'x-rapidapi-key': "4f0dccc3bamsh277c4cec155d3c9p1d0881jsn3ccd92ae98a8",
+            'x-rapidapi-host': "seeking-alpha.p.rapidapi.com"
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        obj = response.json()
+        print(obj)
+        pe_ratio = obj["data"][0]["attributes"]["peRatioFwd"]
+        dividend_yield = obj["data"][0]["attributes"]["divYield"]
+
         stock = {
             "company_name": company_name,
             "stocker_ticker": stock_ticker,
             "company_info": company_info,
             "quote": quote,
-            "stock_details": []
+            "stock_details": [],
+            "num_employees": num_employees,
+            "market_cap": market_cap,
+            "pe_ratio": pe_ratio,
+            "dividend_yield": dividend_yield
         }
 
         return {"stock": stock}
@@ -64,10 +103,12 @@ def get_stock(ticker):
 def create_stock(ticker):
     data = request.json
 
-    print("Im working!!!!!")
+    print("DATAAAAA", data)
 
     new_stock = Stock(company_name=data["company_name"], stock_ticker=data["stockTicker"],
-                      company_info=data["company_info"])
+                      company_info=data["company_info"], num_employees=data["num_employees"],
+                      market_cap=data["market_cap"], pe_ratio=data["pe_ratio"],
+                      dividend_yield=data["dividend_yield"])
 
     db.session.add(new_stock)
     db.session.commit()

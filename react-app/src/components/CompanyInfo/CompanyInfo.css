@@ -16,3 +16,31 @@
     font-weight: 400;
     letter-spacing: .2px;
 }
+
+.company-info__stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 18px;
+}
+
+.company-info__stats > div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 6px 12px;
+}
+
+.company-info__employees.company-info__employees {
+    margin-left: 0px;
+}
+
+.company-info__stats span {
+    color: black;
+    font: inherit;
+    line-height: 25px;
+    font-size: 1rem;
+}
+
+.company-stats__title.company-stats__title {
+    font-weight: 600;
+}

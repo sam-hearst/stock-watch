@@ -23,7 +23,6 @@ export const getStockInfo = (ticker) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data.stock);
         dispatch(loadOneStock(data.stock));
         return data
     }

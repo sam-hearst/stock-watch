@@ -34,10 +34,10 @@
     top: 140px;
     right: 75px;
     width: 35%;
-    padding-top: 60px;
+    margin-top: 60px;
     padding-left: 120px;
     padding-right: 40px;
-    z-index: -1;
+    z-index: 0;
 }
 
 
