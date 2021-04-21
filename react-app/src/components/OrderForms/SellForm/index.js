@@ -11,15 +11,38 @@ function SellForm({ totalShares, isHolding, stock }) {
     const { ticker } = useParams();
     const [numShares, setNumShares] = useState(0);
     const [showBuyForm, setShowBuyForm] = useState(false)
+    const [validationErrors, setValidationErrors] = useState([])
     const sessionUser = useSelector(state => state.session.user)
-    console.log(totalShares);
-
     const estimatedCost = (quote, numShares) => {
         return `$${(quote * numShares).toFixed(2)}`
     }
 
+    function validate() {
+        const validationErrors = []
+
+        if (!numShares) {
+            validationErrors.push('please enter a number greater than 0')
+        }
+
+        if (numShares > totalShares) {
+            if (totalShares === 1) {
+                validationErrors.push(`you can only sell up to ${totalShares} share of ${stock.stocker_ticker}`)
+            } else {
+                validationErrors.push(`you can only sell up to ${totalShares} shares of ${stock.stocker_ticker}`)
+            }
+        }
+
+        return validationErrors
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = validate()
+
+        if (errors.length > 0) {
+            return setValidationErrors(errors);
+        }
 
         const payload = {
             stockTicker: ticker,
@@ -81,6 +104,13 @@ function SellForm({ totalShares, isHolding, stock }) {
                     <div className="order-form__est-cost">
                         <span>Estimated Credit</span>
                         <span>{estimatedCost(stock?.quote.c, numShares)}</span>
+                    </div>
+                    <div className="order-form__errors">
+                        {validationErrors && validationErrors.map((error, idx) => {
+                            return (
+                                <div key={idx}>{error}</div>
+                            )
+                        })}
                     </div>
                     <div className="order-form__submit">
                         <button type="submit">Submit Order</button>

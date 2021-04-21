@@ -100,7 +100,7 @@ def update_holding(ticker):
             Stock_Details.stock_id == data["stockId"]).filter(
                 Stock_Details.user_id == data["userId"]).all()
 
-        print("HOLDING", holding)
+        stock = holding[0].stock.to_dict()
 
         holding[0].num_of_shares = holding[0].num_of_shares - data["numShares"]
         user.buying_power = user.buying_power + data["totalCredit"]
@@ -109,13 +109,12 @@ def update_holding(ticker):
         db.session.add(user)
         db.session.commit()
 
-        updated_holding = holding[0].stock.to_dict()
         stock_details = holding[0].to_dict()
 
-        print("UPDATED HOLDING", update_holding)
-        print("STOCK_DETAILS", stock_details)
+        stock["stock_details"] = [stock_details]
+        print("STOCK_W_DETAILS", stock)
 
-        return {"holding_details": stock_details,
+        return {"holding": stock,
                 "user": user.to_dict()}
 
     # BUYING
@@ -127,18 +126,22 @@ def update_holding(ticker):
             Stock_Details.stock_id == data["stockId"]).filter(
                 Stock_Details.user_id == data["userId"]).all()
 
-        holding[0].num_of_shares = holding[0].num_of_shares + data["numShares"]
+        stock = holding[0].stock.to_dict()
 
+        # this is updating the holding
+        holding[0].num_of_shares = holding[0].num_of_shares + data["numShares"]
         user.buying_power = user.buying_power - data["totalCost"]
 
         db.session.add(holding[0])
         db.session.add(user)
         db.session.commit()
 
-        updated_holding = holding[0].stock.to_dict()
+        # I am manipulating the data to send good data to the frontend
         stock_details = holding[0].to_dict()
+        stock["stock_details"] = [stock_details]
+        print("STOCK_W_DETAILS", stock)
 
-        return {"holding": stock_details,
+        return {"holding": stock,
                 "user": user.to_dict()}
 
 

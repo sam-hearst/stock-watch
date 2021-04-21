@@ -8,6 +8,8 @@
 }
 
 .main-content__holdings-info {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 17px;
 }
 
