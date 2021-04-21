@@ -55,6 +55,10 @@
     border-color: rgb(227,233,237);
 }
 
+.order-form__errors > div {
+    color: red;
+}
+
 .order-form__submit.order-form__submit {
     margin-top: 40px;
     display: flex;

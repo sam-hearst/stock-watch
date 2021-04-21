@@ -27,12 +27,12 @@ const addHolding = (holding) => {
     }
 }
 
-// const alterHolding = (holding) => {
-//     return {
-//         type: UPDATE_HOLDING,
-//         payload: holding
-//     }
-// }
+const alterHolding = (holding) => {
+    return {
+        type: UPDATE_HOLDING,
+        payload: holding
+    }
+}
 
 const removeOne = (stockId) => {
     return {
@@ -94,8 +94,8 @@ export const updateHolding = (payload) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        // NO need to update holdings because redirects to homepage
-        // dispatch(alterHolding(data.holding))
+        // updating so that it's quicker
+        dispatch(alterHolding(data.holding))
         dispatch(setUser(data.user))
         return data;
     }

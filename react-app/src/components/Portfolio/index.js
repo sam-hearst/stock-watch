@@ -20,7 +20,7 @@ function Portfolio() {
     }, [dispatch])
 
     function totalReturn(currentPrice, buyPrice) {
-        const percentChange = (currentPrice - buyPrice) / buyPrice
+        const percentChange = ((currentPrice - buyPrice) / buyPrice) * 100
 
         return `%${percentChange.toFixed(2)}`
     }

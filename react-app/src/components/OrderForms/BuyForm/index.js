@@ -11,15 +11,40 @@ function BuyForm({ totalShares, isHolding, stock }) {
     const dispatch = useDispatch();
     const { ticker } = useParams();
     const [numShares, setNumShares] = useState(0);
-    const [ ShowSellForm, setShowSellForm] = useState(false)
+    const [ ShowSellForm, setShowSellForm ] = useState(false)
+    const [ validationErrors, setValidationErrors ] = useState([])
     const sessionUser = useSelector(state => state.session.user)
 
     const estimatedCost = (quote, numShares) => {
         return `$${(quote*numShares).toFixed(2)}`
     }
 
+    function validate() {
+        const validationErrors = []
+        const estimateCost = stock.quote.c * numShares
+        const buyingPower = sessionUser?.buying_power
+
+        if (!numShares) {
+            validationErrors.push('please enter a number greater than 0')
+        }
+
+        if (estimateCost > buyingPower) {
+            validationErrors.push('Not enough buying power, please deposit more funds')
+        }
+
+        return validationErrors
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const errors = validate()
+
+        if (errors.length > 0) {
+            return setValidationErrors(errors);
+        }
+
+
         let payload;
 
         if (stock.id) {
@@ -105,6 +130,13 @@ function BuyForm({ totalShares, isHolding, stock }) {
                     <div className="order-form__est-cost">
                         <span>Estimated Cost</span>
                         <span>{estimatedCost(stock?.quote.c, numShares)}</span>
+                    </div>
+                    <div className="order-form__errors">
+                        {validationErrors && validationErrors.map((error, idx) => {
+                            return (
+                                <div key={idx}>{error}</div>
+                            )
+                        })}
                     </div>
                     <div className="order-form__submit">
                         <button type="submit">Submit Order</button>
