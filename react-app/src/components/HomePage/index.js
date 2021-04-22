@@ -48,7 +48,7 @@ function HomePage() {
         if (percChange > 0) {
             return `(+${percChange.toFixed(2)}%)`
         } else {
-            return `(-${percChange.toFixed(2)}%)`
+            return `(${percChange.toFixed(2)}%)`
         }
 
     }
