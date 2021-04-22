@@ -18,8 +18,17 @@
 }
 
 .stock__info > span {
-    padding: 10px 10px;
-    font-weight: 600;
+     font-size: 2rem;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.stock-info__daily > span {
+    font-size: .9rem;
+}
+
+#today {
+    color: rgba(121, 133, 139, 1)
 }
 
 
