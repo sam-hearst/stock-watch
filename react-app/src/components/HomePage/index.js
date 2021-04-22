@@ -45,7 +45,12 @@ function HomePage() {
 
         const percChange = ((finalValue - initialValue) / initialValue) * 100
 
-        return `(${percChange.toFixed(2)}%)`
+        if (percChange > 0) {
+            return `(+${percChange.toFixed(2)}%)`
+        } else {
+            return `(-${percChange.toFixed(2)}%)`
+        }
+
     }
 
     function totalDollorChange(holdingsArr) {
@@ -71,9 +76,9 @@ function HomePage() {
         let totalDolChange = (totalValue - initialValue).toFixed(2);
 
         if (totalDolChange > 0) {
-            return `+$${totalDolChange.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+            return `+$${totalDolChange.toLocaleString(undefined, { maximumFractionDigits: 2 })}  `
         } else {
-            return `-$${totalDolChange.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+            return `-$${totalDolChange.toLocaleString(undefined, { maximumFractionDigits: 2 })}  `
         }
     }
 
@@ -85,8 +90,11 @@ function HomePage() {
             <div className="main-content__left-side">
                 <div className="main-content__holdings-info">
                     <span>{holdingsArr && getTotalValue(holdingsArr)}</span>
-                    <span>{holdingsArr && totalDollorChange(holdingsArr)}</span>
-                    <span>{holdingsArr && totalPercentChange(holdingsArr)}</span>
+                    <div className="main-content__return-info">
+                        <span>{holdingsArr && totalDollorChange(holdingsArr)}</span>
+                        <span>{holdingsArr && totalPercentChange(holdingsArr)}</span>
+                        <span id="all-time">  All Time</span>
+                    </div>
                 </div>
                 <div className="holdings-graph">
                     <HoldingsGraph user={user} />

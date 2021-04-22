@@ -16,6 +16,15 @@
 .main-content__holdings-info > span {
     font-size: 2rem;
     font-weight: 500;
+    padding-bottom: 5px;
+}
+
+.main-content__return-info > span {
+    font-size: .9rem;
+}
+
+#all-time {
+    color: rgba(121, 133, 139, 1)
 }
 
 .holdings-graph {

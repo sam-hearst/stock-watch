@@ -17,12 +17,27 @@ function Portfolio() {
             await dispatch(getHoldings());
         }
         getPortfolio();
+
     }, [dispatch])
 
-    function totalReturn(currentPrice, buyPrice) {
-        const percentChange = ((currentPrice - buyPrice) / buyPrice) * 100
+    function dailyReturn(currentPrice, openingPrice) {
+        const percentChange = ((currentPrice - openingPrice) / openingPrice) * 100
 
-        return `%${percentChange.toFixed(2)}`
+        if (percentChange > 0) {
+            return `+${percentChange.toFixed(2)}%`
+        } else {
+            return `${percentChange.toFixed(2)}%`
+        }
+    }
+
+    function positiveOrNegative(currentPrice, openingPrice) {
+        const percentChange = ((currentPrice - openingPrice) / openingPrice) * 100
+
+        if (percentChange > 0) {
+            return 1
+        } else {
+            return -1
+        }
     }
 
     const portfolioArr = Object.values(holdings);
@@ -54,8 +69,8 @@ function Portfolio() {
                                         <div>
                                             {`$${(holding.quote.c).toFixed(2)}`}
                                         </div>
-                                        <div>
-                                            {totalReturn(holding.quote.c, holding.stock_details[0].buy_price)}
+                                        <div className="right-side__daily-return" id={positiveOrNegative(holding.quote.c, holding.quote.o) > 0 ? "green" : "red"}>
+                                            {dailyReturn(holding.quote.c, holding.quote.o)}
                                         </div>
                                     </div>
                                 </Link>
