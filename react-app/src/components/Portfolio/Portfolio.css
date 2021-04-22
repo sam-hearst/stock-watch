@@ -29,3 +29,16 @@
     text-decoration: none;
     color: inherit;
 }
+
+div.right-side__daily-return {
+    text-align: right;
+    font-size: .9rem;
+}
+
+div#red {
+    color: red;
+}
+
+div#green {
+    color:rgba(0,200,5,1);
+}
