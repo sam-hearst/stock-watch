@@ -3,22 +3,24 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0 auto;
-    width: 1150px;
+    width: 1085px;
     padding-top: 110px;
 }
 
 .stock-page__left-side {
     width: 60%;
     z-index: -1;
+    padding-left: 10px;
 }
 
 .stock__info {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .stock__info > span {
-     font-size: 2rem;
+    font-size: 2rem;
     font-weight: 500;
     padding-bottom: 5px;
 }
@@ -40,7 +42,7 @@
 
 .transaction-form {
     position: fixed;
-    top: 10px;
+    top: 140px;
     right: 75px;
     width: 35%;
     margin-top: 60px;
