@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     buying_power = db.Column(db.Float, nullable=True, default=1000.01)
 
     stock_details = db.relationship("Stock_Details", back_populates="user")
+    banking_details = db.relationship("Banking_Details", back_populates="user")
 
     @property
     def password(self):
@@ -34,4 +35,14 @@ class User(db.Model, UserMixin):
             "last_name": self.last_name,
             "email": self.email,
             "buying_power": self.buying_power
+        }
+
+    def to_dict_w_banking_info(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "buying_power": self.buying_power,
+            "banking_details": [banking_detail.to_dict() for banking_detail in self.banking_details]
         }

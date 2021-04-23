@@ -13,9 +13,9 @@ stock_routes = Blueprint("stocks", __name__)
 def get_graph(ticker):
 
     timestamp = int(time.time())  # unix timestamp
-    finnhub_client = finnhub.Client(os.environ.get("FINNHUB_API_KEY"))
+    finnhub_client = finnhub.Client(os.environ.get("FINNHUB_API_KEY_THREE"))
     res = finnhub_client.stock_candles(
-        ticker, 'W', timestamp-3456000, timestamp)
+        ticker, 'W', timestamp-7257600, timestamp)
 
     return {"res": res}
 
