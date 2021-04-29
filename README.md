@@ -92,7 +92,7 @@ This is the backend for the Flask React project.
    heroku run -a {NAME_OF_HEROKU_APP} flask db upgrade
    heroku run -a {NAME_OF_HEROKU_APP} flask seed all
 
-   
+
    heroku run -a tech-watch flask db upgrade
    heroku run -a tech-watch flask seed all
    ```
