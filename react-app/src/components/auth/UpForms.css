@@ -77,3 +77,11 @@
     border-radius: 4px;
     background-color: var(--main-color)
 }
+
+.upform__btn > button:hover {
+    cursor: pointer;
+}
+
+button#demo-btn {
+    margin-left: 40px;
+}

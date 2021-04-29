@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session"
 import "./UpForms.css"
 
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [email, setEmail] = useState("");
@@ -20,6 +21,15 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
             setErrors(user.errors);
         }
     };
+
+    async function handleDemoSubmit(e) {
+        e.preventDefault();
+
+        await dispatch(sessionActions.login("demo@aa.io", 'password'))
+        setAuthenticated(true);
+
+        history.push("/")
+    }
 
     const updateEmail = (e) => {
         setEmail(e.target.value);
@@ -73,6 +83,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
                     </div>
                     <div className="upform__btn">
                         <button type="submit">Login</button>
+                        <button type="submit" id="demo-btn" onClick={handleDemoSubmit}>Demo User</button>
                     </div>
                 </form>
             </div>
