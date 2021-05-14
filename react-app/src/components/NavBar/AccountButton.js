@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { logout } from "../../services/auth";
 
 function AccountButton({ setAuthenticated }) {
+    const history = useHistory();
     const [showDropDown, SetShowDropDown] = useState(false)
     const sessionUser = useSelector((state) => state.session.user);
 
@@ -10,6 +12,11 @@ function AccountButton({ setAuthenticated }) {
         await logout();
         setAuthenticated(false);
     };
+
+    function redirect() {
+        return history.push("/account/banking/");
+    }
+
 
     function handleClick() {
         SetShowDropDown(!showDropDown);
@@ -33,7 +40,6 @@ function AccountButton({ setAuthenticated }) {
             <span onClick={handleClick}>Account</span>
             {showDropDown && (
                 <div className="dropdown-container"
-                    // style={{ backgroundColor: "white", opacity: "1" }}
                 >
                     <div className="dropdown-container__user">
                         <div>
@@ -45,6 +51,14 @@ function AccountButton({ setAuthenticated }) {
                             <i className="fas fa-briefcase"></i>
                         </div>
                         <div>Account</div>
+                    </div>
+                    <div className="dropdown-container__banking"
+                        onClick={redirect}
+                    >
+                        <div>
+                            <i className="fas fa-university"></i>
+                        </div>
+                        <div>Banking</div>
                     </div>
                     <div className="dropdown-container__sign-out"
                         onClick={onLogout}

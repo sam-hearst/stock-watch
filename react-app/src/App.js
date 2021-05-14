@@ -11,6 +11,7 @@ import StockPage from "./components/StockPage"
 import * as sessionActions from "./store/session"
 import { authenticate } from "./services/auth";
 import { useDispatch } from 'react-redux';
+import DepositFundsPage from "./components/DepositFundsPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -47,6 +48,10 @@ function App() {
                 <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
                     <NavBar setAuthenticated={setAuthenticated} />
                     <UsersList />
+                </ProtectedRoute>
+                <ProtectedRoute path="/account/banking" exact={true} authenticated={authenticated}>
+                    <NavBar setAuthenticated={setAuthenticated} />
+                    <DepositFundsPage />
                 </ProtectedRoute>
                 <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
                     <NavBar setAuthenticated={setAuthenticated} />
