@@ -1,0 +1,148 @@
+.banking-container {
+    padding-top: 90px;
+    margin: 0 auto;
+    width: 1024px;
+}
+
+.banking__heading > span {
+    font-size: 3rem;
+}
+
+.banking-transfer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.banking__accounts {
+    padding-top: 36px;
+    flex: 0 0 66.66667%;
+}
+
+.banking__accounts-heading {
+    border-bottom: 1px solid;
+    border-color: rgb(227,233,237);
+}
+
+.banking__accounts-heading > p {
+    font-size: 2rem;
+    margin: 0 0 16px;
+}
+
+.banking-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px 0;
+}
+
+div#icon-card {
+    font-size: 35px;
+    margin-right: 12px;
+}
+
+.banking-account__info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.banking-account__remove > button {
+    background: none;
+    border: 1px solid;
+    color: var(--main-color);
+    cursor: pointer;
+    align-items: center;
+    border-radius: 4px;
+    display: inline-flex;
+    height: 48px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-width: 120px;
+    padding: 0 48px;
+    white-space: nowrap;
+}
+
+.add-account-container {
+    padding: 20px 0;
+}
+
+.add-account-container > button {
+    background: none;
+    border: 0px;
+    padding: 0px;
+    font: inherit;
+    appearance: none;
+    text-align: unset;
+    color: unset;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--main-color);
+}
+
+.transfer-funds-container {
+    flex: 0 0 27.77778%;
+    box-shadow: 0px 12px 24px rgb(0 0 0 / 6%), 0px -12px 24px rgb(0 0 0 / 6%);
+    border-radius: 5px;
+}
+
+.transfer-form__title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 15px 24px;
+    border-bottom: 1px solid rgb(227,233,237);
+}
+
+.transfer-form__title > span {
+    padding: 3px 0px;
+    border-bottom: 2px solid transparent;
+    font-weight: 460;
+}
+
+.transfer-form__content > div{
+    padding: 10px 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+select.transfer-form__dropdown {
+    width: 152px;
+    height: 35px;
+}
+
+select.transfer-form__dropdown > option {
+    text-align: center;
+}
+
+.transfer-form__amount > input {
+    line-height: 20px;
+    height: 35px;
+    text-align: left;
+}
+
+.transfer-form__submit.transfer-form__submit {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.transfer-form__submit > button {
+    height: 48px;
+    padding: 0 48px;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: var(--main-color)
+}

@@ -116,6 +116,11 @@ nav {
     flex-direction: row;
 }
 
+.dropdown-container__banking {
+    display: flex;
+    flex-direction: row;
+}
+
 .dropdown-container__sign-out {
     display: flex;
     flex-direction: row;

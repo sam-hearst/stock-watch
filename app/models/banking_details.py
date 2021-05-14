@@ -10,7 +10,8 @@ class Banking_Details(db.Model):
     user_id = db.Column(db.Integer, ForeignKey("users.id"), nullable=False)
     bank_name = db.Column(db.String(300), nullable=False)
     username = db.Column(db.String(255), nullable=False)
-    account_number = db.Column(db.Integer, nullable=False)
+    account_number = db.Column(db.BigInteger, nullable=False)
+    account_type = db.Column(db.Boolean)
 
     user = db.relationship("User", back_populates="banking_details")
 
@@ -21,5 +22,6 @@ class Banking_Details(db.Model):
             "user_id": self.user_id,
             "bank_name": self.bank_name,
             "username": self.username,
-            "account_number": self.account_number
+            "account_number": self.account_number,
+            "account_type": self.account_type
         }
