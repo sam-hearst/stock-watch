@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getBDetails } from "../../store/banking_details";
+import { alterUser } from "../../store/session";
+import Modal from "./AddBAccountModal";
 import "./DepositFundsPage.css"
 
 
 function DepositFundsPage() {
     const dispatch = useDispatch();
-    const [ fromAccount, setFromAccount ] = useState('default')
-    const [ toAccount, setToAccount ] = useState('default');
+    const [fromAccount, setFromAccount] = useState('default')
+    const [toAccount, setToAccount] = useState('default');
+    const [transferAmount, setTransferAmount ] = useState('')
+    const [show, setShow ] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const bDetails = useSelector(state => state.banking_details);
     const bDetailsArr = Object.values(bDetails);
 
-    console.log(bDetails);
 
-    async function handleSubmit() {
-        return `working doeee`;
+    async function handleSubmit(e) {
+        e.preventDefault();
 
+        const payload = {
+            userId: sessionUser.id,
+            fromAccount,
+            toAccount,
+            transferAmount
+        }
+
+
+        await dispatch(alterUser(payload));
+        setFromAccount("default");
+        setToAccount("default");
+        setTransferAmount('');
+
+        return
     }
 
     function convertAccountNumber(accountNumber) {
@@ -65,7 +82,8 @@ function DepositFundsPage() {
                         })}
                     </div>
                     <div className="add-account-container">
-                        <button>Add New Account</button>
+                        <button onClick={() => setShow(true)}>Add New Account</button>
+                        <Modal onClose={() => setShow(false)} show={show}/>
                     </div>
                 </div>
                 <div className="transfer-funds-container">
@@ -82,10 +100,10 @@ function DepositFundsPage() {
                                     value={fromAccount}
                                     onChange={(e) => setFromAccount(e.target.value)}
                                 >
-                                    <option value="">--Choose account--</option>
-                                    <option>Robinhood (This Account)</option>
+                                    <option value="default">--Choose account--</option>
+                                    <option value="tech-watch">Robinhood (This Account)</option>
                                     {bDetailsArr && bDetailsArr.map((account, i) => (
-                                        <option key={i}>
+                                        <option value={account.id} key={i}>
                                             {`${account.account_type ? `Savings at ${account.bank_name}` : `Checking at ${account.bank_name}`}`}
                                         </option>
                                     ))}
@@ -97,10 +115,10 @@ function DepositFundsPage() {
                                     value={toAccount}
                                     onChange={(e) => setToAccount(e.target.value)}
                                 >
-                                    <option value="">--Choose account--</option>
-                                    <option>Robinhood (This Account)</option>
+                                    <option value="default">--Choose account--</option>
+                                    <option value="tech-watch">Robinhood (This Account)</option>
                                     {bDetailsArr && bDetailsArr.map((account, i) => (
-                                        <option key={i}>
+                                        <option value={account.id} key={i}>
                                             {`${account.account_type ? `Savings at ${account.bank_name}` : `Checking at ${account.bank_name}`}`}
                                         </option>
                                     ))}
@@ -110,7 +128,9 @@ function DepositFundsPage() {
                                 <label htmlFor="shares">Amount</label>
                                 <input
                                     name="shares"
-                                    type="text"
+                                    type="number"
+                                    value={transferAmount}
+                                    onChange={(e) => (setTransferAmount(e.target.value))}
                                     placeholder="$0.00"
                                 />
                             </div>
