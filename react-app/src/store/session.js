@@ -2,6 +2,7 @@ import * as auth from "../services/auth"
 
 const SET_USER = "session/setUser"
 const REMOVE_USER = "session/removeUser"
+const UPDATE_USER = "session/updateUser"
 
 export const setUser = user => {
     return {
@@ -13,6 +14,13 @@ export const setUser = user => {
 const removeUser = () => {
     return {
         type: REMOVE_USER,
+    }
+}
+
+const updateUser = (user) => {
+    return {
+        type: UPDATE_USER,
+        payload: user
     }
 }
 
@@ -41,6 +49,23 @@ export const logout = () => async dispatch => {
     return response
 }
 
+export const alterUser = (payload) => async dispatch => {
+    console.log("hitting the alter user thunk!!");
+    const response = await fetch(`/api/users/${payload.userId}`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(updateUser(data.user))
+    }
+}
+
 const initialState = {
     user: null
 }
@@ -52,6 +77,12 @@ const sessionReducer = (state = initialState, action) => {
             newState = { ...state }
             newState.user = action.user
             return newState
+        case UPDATE_USER: {
+            console.log("in update user reducer")
+            newState = { ...state }
+            newState.user = action.payload
+            return newState
+        }
         case REMOVE_USER:
             newState = { ...state };
             newState.user = null;
