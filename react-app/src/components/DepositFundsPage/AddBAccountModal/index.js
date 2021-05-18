@@ -1,7 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { createBDetail } from "../../../store/banking_details";
 import "./AddBAccountModal.css"
 
+
 const Modal = props => {
+    const dispatch = useDispatch();
+    const [accountType, setAccountType] = useState("default");
+    const [bankName, setBankName] = useState('default');
+    const [username, setUsername] = useState('');
+    const [accountPassword, setAccountPassword] = useState('');
+    const [accountNumber, setAccoutNumber] = useState('');
+
+    const bankNameArr = ["Bank of America", "Chase", "Capital One", "Citi", "Wells Fargo", "TD Bank",
+        "Ally Bank", "Charles Schwab"]
+
+
+
 
     if (!props.show) {
         return null
@@ -9,6 +24,16 @@ const Modal = props => {
 
     async function handleSubmit(e) {
         e.preventDefault();
+
+        const payload = {
+            accountType,
+            bankName,
+            username,
+            accountPassword,
+            accountNumber,
+        }
+
+        await dispatch(createBDetail(payload));
 
         return
     }
@@ -28,33 +53,58 @@ const Modal = props => {
                         <div className="form-content">
                             <div>
                                 <label>Account Type</label>
-                                <select>
-                                    <option>something</option>
+                                <select
+                                    value={accountType}
+                                    onChange={(e) => (setAccountType(e.target.value))}
+                                >
+                                    <option value='default'>-- Select Account Type --&nbsp;</option>
+                                    <option value={false}>Checking</option>
+                                    <option value={true}>Savings</option>
                                 </select>
                             </div>
                             <div>
                                 <label>Bank</label>
-                                <select>
-                                    <option></option>
+                                <select
+                                    value={bankName}
+                                    onChange={(e) => (setBankName(e.target.value))}
+                                >
+                                    <option value="default">-- Select Your Bank --</option>
+                                    {bankNameArr && bankNameArr.map((bankName, i) => {
+                                        return (
+                                            <option key={i} value={bankName}>{bankName}</option>
+                                        )
+                                    })}
                                 </select>
                             </div>
                             <div>
                                 <label>Username</label>
-                                <input></input>
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => (setUsername(e.target.value))}
+                                ></input>
                             </div>
                             <div>
                                 <label>Account Password</label>
-                                <input></input>
+                                <input
+                                    type="password"
+                                    value={accountPassword}
+                                    onChange={(e) => (setAccountPassword(e.target.value))}
+                                ></input>
                             </div>
                             <div>
                                 <label>Account Number</label>
-                                <input></input>
+                                <input
+                                    type="text"
+                                    value={accountNumber}
+                                    onChange={(e) => (setAccoutNumber(e.target.value))}
+                                ></input>
                             </div>
                         </div>
+                        <div>
+                            <button className="button">Link Account</button>
+                        </div>
                     </form>
-                </div>
-                <div className="modal-footer">
-                    <button onClick={props.onClose} className="button">Close</button>
                 </div>
             </div>
         </div>
