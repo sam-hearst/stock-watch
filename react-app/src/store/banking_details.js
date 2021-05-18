@@ -37,6 +37,7 @@ export const getBDetails = () => async (dispatch) => {
 
 
 export const createBDetail = (payload) => async (dispatch) => {
+    console.log("hitting the create bdetail thunk", payload); 
     const response = await fetch(`/api/account/banking/`, {
         method: 'POST',
         body: JSON.stringify(payload),

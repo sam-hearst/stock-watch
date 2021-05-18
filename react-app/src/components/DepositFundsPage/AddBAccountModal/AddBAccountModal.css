@@ -13,10 +13,11 @@
 .modal-content {
     width: 408px;
     background-color: #fff;
+    border-radius: 5px;
 }
 
-.modal-header, .modal-footer {
-    padding: 30px;
+.modal-header {
+    padding: 20px 30px 0px 30px;
 }
 
 .modal-title {
@@ -25,13 +26,17 @@
 
 .modal-body {
     padding: 30px;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+}
+
+.modal-subtitle {
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 450;
 }
 
 
 .form-content > div {
-    margin: 6px 0px;
+    margin: 0px 0px 12px 0px;
     display: flex;
     flex-direction: column;
 }
@@ -45,5 +50,5 @@
 }
 
 .form-content label {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
