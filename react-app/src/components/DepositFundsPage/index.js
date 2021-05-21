@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getBDetails } from "../../store/banking_details";
 import { alterUser } from "../../store/session";
 import Modal from "./AddBAccountModal";
+import BankAccount from "./BankAccount";
 import "./DepositFundsPage.css"
 
 
@@ -10,8 +11,8 @@ function DepositFundsPage() {
     const dispatch = useDispatch();
     const [fromAccount, setFromAccount] = useState('default')
     const [toAccount, setToAccount] = useState('default');
-    const [transferAmount, setTransferAmount ] = useState('')
-    const [show, setShow ] = useState(false);
+    const [transferAmount, setTransferAmount] = useState('')
+    const [show, setShow] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const bDetails = useSelector(state => state.banking_details);
     const bDetailsArr = Object.values(bDetails);
@@ -36,9 +37,6 @@ function DepositFundsPage() {
         return
     }
 
-    function convertAccountNumber(accountNumber) {
-        return `••••${accountNumber.toString().slice(-4)}`;
-    }
 
 
     useEffect(() => {
@@ -63,27 +61,13 @@ function DepositFundsPage() {
                     <div className="accounts">
                         {bDetailsArr && bDetailsArr.map((account) => {
                             return (
-                                <div key={account.id} className="banking-account">
-                                    <div className="banking-img">
-                                        <div id="icon-card">
-                                            <i className="fas fa-credit-card"></i>
-                                        </div>
-                                    </div>
-                                    <div className="banking-account__info">
-                                        <span>Regular {account.account_type ? "Savings" : "Checking"} at {account.bank_name}</span>
-                                        <span>Savings {convertAccountNumber(account.account_number)}</span>
-                                    </div>
-                                    <div className="banking-account__remove">
-                                        <button>Remove</button>
-                                    </div>
-                                </div>
-
+                                <BankAccount key={account.id} account={account} />
                             )
                         })}
                     </div>
                     <div className="add-account-container">
                         <button onClick={() => setShow(true)}>Add New Account</button>
-                        <Modal onClose={() => setShow(false)} show={show}/>
+                        <Modal onClose={() => setShow(false)} show={show} />
                     </div>
                 </div>
                 <div className="transfer-funds-container">

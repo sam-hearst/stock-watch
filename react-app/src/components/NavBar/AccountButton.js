@@ -46,12 +46,12 @@ function AccountButton({ setAuthenticated }) {
                             <span>Hi {sessionUser?.first_name}!</span>
                         </div>
                     </div>
-                    <div className="dropdown-container__account">
+                    {/* <div className="dropdown-container__account">
                         <div>
                             <i className="fas fa-briefcase"></i>
                         </div>
                         <div>Account</div>
-                    </div>
+                    </div> */}
                     <div className="dropdown-container__banking"
                         onClick={redirect}
                     >

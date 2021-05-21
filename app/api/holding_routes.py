@@ -158,8 +158,6 @@ def delete_holding(ticker):
 
     stock = holding[0].stock.to_dict()
 
-    print("STOCCKKKKK", stock)
-
     user = User.query.get(user_id)
 
     user.buying_power = user.buying_power + data["totalCredit"]
