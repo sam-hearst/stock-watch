@@ -91,6 +91,10 @@ div#icon-card {
     flex: 0 0 27.77778%;
     box-shadow: 0px 12px 24px rgb(0 0 0 / 6%), 0px -12px 24px rgb(0 0 0 / 6%);
     border-radius: 5px;
+    position: fixed;
+    right: 130px;
+    top: 165px;
+    width: 21%;
 }
 
 .transfer-form__title {

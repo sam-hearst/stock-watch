@@ -10,7 +10,7 @@ const Modal = props => {
     const [bankName, setBankName] = useState('default');
     const [username, setUsername] = useState('');
     const [accountPassword, setAccountPassword] = useState('');
-    const [accountNumber, setAccoutNumber] = useState('');
+    const [accountNumber, setAccountNumber] = useState('');
 
     const bankNameArr = ["Bank of America", "Chase", "Capital One", "Citi", "Wells Fargo", "TD Bank",
         "Ally Bank", "Charles Schwab"]
@@ -35,7 +35,14 @@ const Modal = props => {
 
         await dispatch(createBDetail(payload));
 
-        return
+        setAccountType("default");
+        setBankName("default");
+        setUsername('');
+        setAccountPassword('');
+        setAccountNumber('');
+
+
+        return props.onClose()
     }
 
 
@@ -97,12 +104,12 @@ const Modal = props => {
                                 <input
                                     type="text"
                                     value={accountNumber}
-                                    onChange={(e) => (setAccoutNumber(e.target.value))}
+                                    onChange={(e) => (setAccountNumber(e.target.value))}
                                 ></input>
                             </div>
                         </div>
-                        <div>
-                            <button className="button">Link Account</button>
+                        <div className="add-account__button">
+                            <button>Link Account</button>
                         </div>
                     </form>
                 </div>

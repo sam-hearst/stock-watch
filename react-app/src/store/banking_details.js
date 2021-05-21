@@ -1,5 +1,3 @@
-import { setUser } from "./session"
-
 const LOAD_B_DETAILS = "b_detail/LOAD"
 const ADD_B_DETAIL = "b_detail/ADD"
 const REMOVE_B_DETAIL = "b_detail/DELETE"
@@ -37,7 +35,6 @@ export const getBDetails = () => async (dispatch) => {
 
 
 export const createBDetail = (payload) => async (dispatch) => {
-    console.log("hitting the create bdetail thunk", payload); 
     const response = await fetch(`/api/account/banking/`, {
         method: 'POST',
         body: JSON.stringify(payload),
@@ -48,9 +45,7 @@ export const createBDetail = (payload) => async (dispatch) => {
 
     if (!response.ok) throw response;
     const data = await response.json();
-    console.log(data);
-    dispatch(addBDetail(data));
-    dispatch(setUser(data))
+    dispatch(addBDetail(data.banking_detail));
     return data
 }
 
@@ -65,8 +60,7 @@ export const deleteBDetail = (payload) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json();
-        dispatch(removeOne(data))
-        dispatch(setUser(data))
+        dispatch(removeOne(data.banking_detail))
         return data
     }
 }
@@ -89,7 +83,7 @@ const bankingDetailsReducer = (state = initialState, action) => {
         }
         case REMOVE_B_DETAIL: {
             newState = { ...state }
-            delete newState[action.payload]
+            delete newState[action.payload.id]
             return newState;
         }
         default:
