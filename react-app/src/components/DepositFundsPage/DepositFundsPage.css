@@ -95,6 +95,7 @@ div#icon-card {
     right: 130px;
     top: 165px;
     width: 21%;
+    z-index: 0; 
 }
 
 .transfer-form__title {
