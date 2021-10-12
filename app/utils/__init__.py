@@ -1,8 +1,6 @@
 import finnhub
 import os
-import requests
 import time
-import datetime
 
 
 def get_data_pts(tickers, shares):
