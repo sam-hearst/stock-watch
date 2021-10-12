@@ -1,14 +1,10 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, User, Stock_Details, Stock
+from app.models import db, User, Stock_Details
 from app.utils import get_data_pts
 from app.utils import convert_holdings
 from datetime import date
-import datetime
-import finnhub
-import os
-import requests
-import time
+
 
 holding_routes = Blueprint("holdings", __name__)
 
