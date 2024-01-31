@@ -1,2 +1,2 @@
 web: gunicorn app:app
-web: npm start --prefix react-app
+web: cd react-app && npm start
